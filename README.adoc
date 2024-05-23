@@ -2,6 +2,10 @@
 :cpp: C++
 :project: kub-hpda-ml 
 
+= Ktirio Urban Building HPDA ML code 
+
+ICCS and Cemosis team
+
 = {feelpp} Template Project 
 Christophe Prud'homme <https://github.com/prudhomm[@prudhomm]>
 v2: 
