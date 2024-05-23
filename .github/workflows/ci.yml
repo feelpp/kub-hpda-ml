@@ -34,6 +34,13 @@ jobs:
       env:
         CXX: clang++
 
+    - 
+      name: Tests
+      run: |
+        source .venv/bin/activate
+        pytest
+        pytest --nbmake src/notebooks/**/*.ipynb
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
