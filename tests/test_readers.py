@@ -3,7 +3,8 @@ from feelpp.ktirio.hpdaml.readers import *
 
 class TestEnsightReader:
     filepath = "src/cases/case_reader/basic.case"
-    ensight_reader = EnsightReader(filepath)
+    ensight_reader = EnsightReader()
+    ensight_reader.readCase(filepath)
     
     def test_getTimeset(self):
         reader = self.ensight_reader.readCase()
