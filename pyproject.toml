@@ -5,7 +5,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "kub-hpda-ml"
-version = "0.1.0"
+version = "0.1.1"
 description="KTirio Urban Building HPDA and ML processing"
 readme = "README.md"
 authors = [

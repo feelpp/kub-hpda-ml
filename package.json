@@ -2,9 +2,9 @@
   "private": true,
   "name": "kub-hpda-ml",
   "description": "The Kub Hpda Ml documentation",
-  "version": "2.1.0",
+  "version": "0.1.1",
   "license": "AGPL-3.0",
-  "author": "The Kub Hpda Ml Team",
+  "author": "The Kub HPDA ML Team",
   "homepage": "https://github.com/feelpp/kub-hpda-ml#readme",
   "repository": {
     "type": "git",
