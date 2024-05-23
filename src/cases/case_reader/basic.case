@@ -1,9 +1,7 @@
 FORMAT:
 type: ensight gold
 GEOMETRY:
-model: geo.geo
 VARIABLES:
-scalar per node: 1 solarmask sm.****
 TIME:
 time set:        1
 number of steps: 1
