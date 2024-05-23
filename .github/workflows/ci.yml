@@ -34,8 +34,25 @@ jobs:
       env:
         CXX: clang++
 
+    - 
+      name: Tests
+      run: |
+        source .venv/bin/activate
+        pytest
+      env:
+        HIDALGO2_TOKEN_CKAN: ${{ secrets.HIDALGO2_TOKEN_CKAN }}
+
+    - 
+      name: Test Notebooks
+      run: |
+        source .venv/bin/activate
+        pytest --nbmake src/notebooks/**/*.ipynb
+      shell: bash
+      env:
+        HIDALGO2_TOKEN_CKAN: ${{ secrets.HIDALGO2_TOKEN_CKAN }}
+
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: wheel-artifacts
@@ -58,7 +75,7 @@ jobs:
     - name: Install NPM dependencies
       run: npm install
     - name: Download
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         # Artifact name
         name: wheel-artifacts
@@ -107,7 +124,7 @@ jobs:
       run: |
         cmake --build --preset default -t package
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: kub-hpda-ml-artifacts
@@ -124,7 +141,7 @@ jobs:
         lfs: true
         submodules: 'recursive'
     - name: Download
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         # Artifact name
         name: kub-hpda-ml-artifacts
@@ -174,19 +191,19 @@ jobs:
           lfs: true
           submodules: 'recursive'      
       - name: Download Deb Packages
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           # Artifact name
           name: kub-hpda-ml-artifacts
           path: artifacts/
       - name: Download Wheel Packages
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           # Artifact name
           name: wheel-artifacts
           path: dist/
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             artifacts/*.deb

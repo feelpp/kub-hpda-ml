@@ -4,9 +4,14 @@ scikit-build >= 0.8.1
 scikit_build_core
 pyproject-metadata
 ipykernel
+jupyter
+nbmake
+pyspark
+pyvista
 numpy
 scipy
 pandas
 tabulate 
 plotly
-
+requests
+.

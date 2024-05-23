@@ -5,11 +5,12 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "kub-hpda-ml"
-version = "3.0.1"
-description="Kub Hpda Ml"
+version = "0.1.0"
+description="KTirio Urban Building HPDA and ML processing"
 readme = "README.md"
 authors = [
   { name = "Christophe Prud'homme", email = "christophe.prudhomme@cemosis.fr" },
+  { name = "Javier Cladellas", email = "javier.Cladellas@cemosis.fr"}
 ]
 requires-python = ">=3.7"
 classifiers = [
@@ -29,7 +30,9 @@ test = ["pytest"]
 
 [tool.scikit-build]
 wheel.expand-macos-universal-tags = true
-
+wheel.packages = ["src/feelpp/"]
+cmake.verbose = true
+logging.level = "INFO"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -39,8 +42,8 @@ filterwarnings = [
   "error",
   "ignore:(ast.Str|Attribute s|ast.NameConstant|ast.Num) is deprecated:DeprecationWarning:_pytest",  # Python 3.12
 ]
-# testpaths = ["tests"]
-
+testpaths = ["tests", "src/notebooks"]
+pythonpath = ["src/feelpp"]
 
 # [tool.cibuildwheel]
 # test-command = "pytest {project}/tests"
