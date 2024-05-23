@@ -1,7 +1,7 @@
 site:
-  title: Feel++ Template Project
-  url: https://feelpp.github.io/feelpp-project/
-  start_page: feelpp-project::index.adoc
+  title: Kub Hpda Ml
+  url: https://feelpp.github.io/kub-hpda-ml/
+  start_page: kub-hpda-ml::index.adoc
 content:
   sources:
   - url: .
