@@ -1,9 +1,11 @@
 from feelpp.ktirio.hpdaml.readers import *
 
-def test_read_case():
+
+class TestEnsightReader:
     filepath = "src/cases/case_reader/basic.case"
-    reader = read_case(filepath)
-    timeset=reader.GetTimeSets()
-    time=timeset.GetItem(0)
-    timesteps=time.GetSize()
-    assert timesteps == 1
+    ensight_reader = EnsightReader(filepath)
+    
+    def test_getTimeset(self):
+        reader = self.ensight_reader.readCase()
+        time, timesteps = self.ensight_reader.getTimeset()
+        assert timesteps == 1
