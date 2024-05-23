@@ -7,6 +7,10 @@ import io
 
 
 class CkanDownloader:
+    """A class to download files from CKAN
+    Currently only supports zip files
+    """
+
     def __init__(self,base_ckan_url,org_id,package_id,resource_filename):
         self.base_ckan_url = base_ckan_url
         self.org_id = org_id
@@ -16,6 +20,18 @@ class CkanDownloader:
         self.local_filename = None
 
     def download(self, is_zipped=True):
+        """Downloads and writes to disc a file from CKAN
+
+        Args:
+            is_zipped (bool, optional): True if the downloaded file is compressed. Defaults to True.
+
+        Raises:
+            NotImplementedError: Only zip files are supported for now
+
+        Returns:
+            string: The local filename of the downloaded file. 
+            If the file is zipped, the name of the folder is returned
+        """
         #Downlaod file contents
         #TODO: Handle private access
         response = requests.get(
@@ -33,12 +49,17 @@ class CkanDownloader:
             raise NotImplementedError("Only zip files are supported for now")
 
     def delete(self):
+        """Deletes the downloaded file
+        """
         #TODO: Handle deletion more carefully
         if self.local_filename is not None:
             os.remove(self.local_filename)
             self.local_filename = None
 
 class EnsightReader:
+    """Wrapper class to read Ensight Gold Binary files using VTK
+    """
+
     def __init__(self):
         self.reader = None
         self.mesh_cells = None
@@ -68,6 +89,14 @@ class EnsightReader:
     
     
     def getTimeset(self):
+        """Get the timeset information from the reader object
+
+        Raises:
+            ValueError: Reader object is not set. Call readCase first
+
+        Returns:
+            tuple(vtkEnSightReaderTimeSet, int): The time object and the number of timesteps
+        """
         if self.reader is None:
             raise ValueError("Reader object is not set. Call readCase first")
         
@@ -78,6 +107,14 @@ class EnsightReader:
         return time, time.GetSize()
     
     def getMesh(self):
+        """Get the mesh from the reader object in numpy format
+
+        Raises:
+            ValueError: Reader object is not set. Call readCase first
+
+        Returns:
+            np.array: The mesh in numpy format. It is a 3D array : (number of cells (triangles), points of the cell, coordinates of each point)
+        """
         #Use under the assumption that mesh is invariant in time
         if self.reader is None:
             raise ValueError("Reader object is not set. Call readCase first")
@@ -93,6 +130,18 @@ class EnsightReader:
         return self.mesh_cells
     
     def readTimestep(self, timestep):
+        """Read the scalar field at a given timestep, using the class attribute scalar_field. 
+            It returns the scalar field in numpy format. The shape of the array is the same as the number of cells in the mesh, and have a one to one correspondence with the cells.
+
+        Args:
+            timestep (int): The timestep to read 
+
+        Raises:
+            ValueError: Reader object is not set. Call readCase first
+
+        Returns:
+            np.array(): The scalar field in numpy format (number of cells, 1)
+        """
         if self.reader is None:
             raise ValueError("Reader object is not set. Call readCase first")
         if self.mesh_cells is None:
