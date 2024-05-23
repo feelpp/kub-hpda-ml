@@ -21,7 +21,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-feelpp_add_testcase(cases PREFIX hpdaml CATEGORY ktirio)
+#feelpp_add_testcase(cases PREFIX hpdaml CATEGORY ktirio)
 
 
 
