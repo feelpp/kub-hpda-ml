@@ -40,6 +40,8 @@ jobs:
         source .venv/bin/activate
         pytest
         pytest --nbmake src/notebooks/**/*.ipynb
+      env:
+        HIDALGO2_TOKEN_CKAN: ${{ secrets.HIDALGO2_TOKEN_CKAN }}
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
