@@ -8,8 +8,13 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    ignore:
+      # Ignore updates to packages that start with 'aws'
+      # Wildcards match zero or more arbitrary characters
+      - dependency-name: "@asciidoctor/core"
+      - dependency-name: "asciidoctor"
   - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
