@@ -29,7 +29,7 @@ class CkanDownloader:
             NotImplementedError: Only zip files are supported for now
 
         Returns:
-            string: The local filename of the downloaded file. 
+            string: The local filename of the downloaded file.
             If the file is zipped, the name of the folder is returned
         """
         #Downlaod file contents
@@ -83,11 +83,12 @@ class EnsightReader:
         """
         reader = vtkEnSightGoldBinaryReader()
         reader.SetCaseFileName(filepath)
+        reader.ReadAllVariablesOn()
         reader.Update()
         self.reader = reader
         return self.reader
-    
-    
+
+
     def getTimeset(self):
         """Get the timeset information from the reader object
 
@@ -99,13 +100,13 @@ class EnsightReader:
         """
         if self.reader is None:
             raise ValueError("Reader object is not set. Call readCase first")
-        
+
         #TODO: Support multiple timesets
         timeset = self.reader.GetTimeSets()
         time = timeset.GetItem(0)
 
         return time, time.GetSize()
-    
+
     def getMesh(self):
         """Get the mesh from the reader object in numpy format
 
@@ -118,9 +119,9 @@ class EnsightReader:
         #Use under the assumption that mesh is invariant in time
         if self.reader is None:
             raise ValueError("Reader object is not set. Call readCase first")
-        
+
         output = self.reader.GetOutput().GetBlock(0)
-        self.mesh_cells = np.empty((output.GetNumberOfCells(),3,3)) 
+        self.mesh_cells = np.empty((output.GetNumberOfCells(),3,3))
         for i in range(output.GetNumberOfCells()):
             #TODO: Slow, there should be a better way to convert to numpy
             cell = output.GetCell(i)
@@ -128,13 +129,13 @@ class EnsightReader:
             self.mesh_cells[i] = np.array([cell_points.GetPoint(i) for i in range(cell_points.GetNumberOfPoints())])
 
         return self.mesh_cells
-    
+
     def readTimestep(self, timestep):
-        """Read the scalar field at a given timestep, using the class attribute scalar_field. 
+        """Read the scalar field at a given timestep, using the class attribute scalar_field.
             It returns the scalar field in numpy format. The shape of the array is the same as the number of cells in the mesh, and have a one to one correspondence with the cells.
 
         Args:
-            timestep (int): The timestep to read 
+            timestep (int): The timestep to read
 
         Raises:
             ValueError: Reader object is not set. Call readCase first
@@ -153,7 +154,7 @@ class EnsightReader:
         #TODO: Support multiple blocks and multiple scalar fields
         output = self.reader.GetOutput().GetBlock(0)
         cell_data = output.GetCellData()
-        
+
         field_vtk_array = cell_data.GetArray(self.scalar_field)
         scalar_field_array = np.empty((output.GetNumberOfCells()))
         for i in range(output.GetNumberOfCells()):
